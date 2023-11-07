@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 F:\TERM8\PRN231\PRN231-Project\PRN231_Project\Cinema_system\App.xaml
-2-1364415551
+3-777556533
 
-6445263070
+7-2146903724
 1971921915825
-MainWindow.xaml;Views\Admin\Showtimemanagement\ShowtimeManagement.xaml;
+MainWindow.xaml;Views\Admin\MainAdminWindow.xaml;Views\Admin\Showtimemanagement\ShowtimeManagement.xaml;
 
-True
+False
 
