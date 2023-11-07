@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "MBVOAHIVxBxcw+PEV8WZecrDa0aduJUnpD8Ulj1FFYlkKzT3FhDVA55973zC2rXlaFDBsLkRP4N0dWmtWuLxhw==",
+  "dgSpecHash": "d4EL3rUlK6eKwwqEfoudyV0Wci340Mpf+fIUidmd205HL1C4IlCkTHesU3qO1cBtJ9SiBGiZFjUEpGZQgM88rA==",
   "success": true,
-  "projectFilePath": "D:\\FULearning\\Semester8\\PRN231-Project\\PRN231_Project\\Cinema_system\\Cinema_system.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "F:\\TERM8\\PRN231\\PRN231-Project\\PRN231_Project\\Cinema_system\\Cinema_system.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\admin\\.nuget\\packages\\materialdesigncolors\\2.1.4\\materialdesigncolors.2.1.4.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\materialdesignthemes\\4.9.0\\materialdesignthemes.4.9.0.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\microsoft.xaml.behaviors.wpf\\1.1.39\\microsoft.xaml.behaviors.wpf.1.1.39.nupkg.sha512"
+  ],
   "logs": []
 }

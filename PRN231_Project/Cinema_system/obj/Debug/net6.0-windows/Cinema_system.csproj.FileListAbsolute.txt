@@ -1,0 +1,6 @@
+F:\TERM8\PRN231\PRN231-Project\PRN231_Project\Cinema_system\obj\Debug\net6.0-windows\Cinema_system.csproj.AssemblyReference.cache
+F:\TERM8\PRN231\PRN231-Project\PRN231_Project\Cinema_system\obj\Debug\net6.0-windows\MainWindow.g.cs
+F:\TERM8\PRN231\PRN231-Project\PRN231_Project\Cinema_system\obj\Debug\net6.0-windows\App.g.cs
+F:\TERM8\PRN231\PRN231-Project\PRN231_Project\Cinema_system\obj\Debug\net6.0-windows\Cinema_system_MarkupCompile.cache
+F:\TERM8\PRN231\PRN231-Project\PRN231_Project\Cinema_system\obj\Debug\net6.0-windows\Cinema_system_MarkupCompile.lref
+F:\TERM8\PRN231\PRN231-Project\PRN231_Project\Cinema_system\obj\Debug\net6.0-windows\Views\Admin\Showtimemanagement\ShowtimeManagement.g.cs
