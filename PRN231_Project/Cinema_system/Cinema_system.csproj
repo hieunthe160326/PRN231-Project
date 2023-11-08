@@ -8,12 +8,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\img_search.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Views\Customers\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="MaterialDesignColors" Version="2.1.4" />
     <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\img_search.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

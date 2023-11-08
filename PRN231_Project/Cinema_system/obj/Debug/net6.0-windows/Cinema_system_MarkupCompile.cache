@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-F:\TERM8\PRN231\PRN231-Project\PRN231_Project\Cinema_system\obj\Debug\net6.0-windows\
+C:\Users\Admin\Desktop\ProjectPRN231\PRN231-Project\PRN231_Project\Cinema_system\obj\Debug\net6.0-windows\
 Cinema_system
 none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
-F:\TERM8\PRN231\PRN231-Project\PRN231_Project\Cinema_system\App.xaml
-3-777556533
+C:\Users\Admin\Desktop\ProjectPRN231\PRN231-Project\PRN231_Project\Cinema_system\App.xaml
+5-1978773881
 
-5-1436854398
-1971921915825
-MainWindow.xaml;Views\Admin\MainAdminWindow.xaml;Views\Admin\Showtimemanagement\ShowtimeManagement.xaml;
+71795796506
+197-808904081
+MainWindow.xaml;Views\Admin\BillsMangament\BillsManagement.xaml;Views\Admin\Booking\BookingSeats.xaml;Views\Admin\MainAdminWindow.xaml;Views\Admin\Showtimemanagement\ShowtimeManagement.xaml;
 
 False
 

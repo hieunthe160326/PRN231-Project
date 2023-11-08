@@ -53,12 +53,7 @@ SeatName nvarchar(50)
 )
 
 GO
-create table Bills(
-BillId int primary key identity(1,1) not null,
-SeatId int foreign key references Seats(SeatId) ,
-UserId int foreign key references Users(UserId) 
-)
-GO
+
 create table Movies(
 MovieId int primary key identity(1,1) not null,
 Title nvarchar(100),
@@ -76,8 +71,15 @@ StartTime datetime,
 EndTime datetime,
 RoomId int foreign key references Rooms(RoomId)
 )
-
+Go
+create table Bills(
+BillId int primary key identity(1,1) not null,
+SeatId int foreign key references Seats(SeatId) ,
+UserId int foreign key references Users(UserId) ,
+ShowId int foreign key references Shows(ShowId) 
+)
 GO
+
 insert into Roles values( N'Admin')
 insert into Roles values(N'Customer')
 insert into Roles values(N'Staff')

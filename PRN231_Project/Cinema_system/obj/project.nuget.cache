@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "d4EL3rUlK6eKwwqEfoudyV0Wci340Mpf+fIUidmd205HL1C4IlCkTHesU3qO1cBtJ9SiBGiZFjUEpGZQgM88rA==",
+  "dgSpecHash": "lrMM6AgECSmbSH1nNZj3YDhcRT7kEPcH3Q/n3m2vdqlI8kBbMZrrSZz2nOJ5AbGrTPOiV51GT0xEhW4SXSXWZA==",
   "success": true,
-  "projectFilePath": "F:\\TERM8\\PRN231\\PRN231-Project\\PRN231_Project\\Cinema_system\\Cinema_system.csproj",
+  "projectFilePath": "C:\\Users\\Admin\\Desktop\\ProjectPRN231\\PRN231-Project\\PRN231_Project\\Cinema_system\\Cinema_system.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\admin\\.nuget\\packages\\materialdesigncolors\\2.1.4\\materialdesigncolors.2.1.4.nupkg.sha512",
-    "C:\\Users\\admin\\.nuget\\packages\\materialdesignthemes\\4.9.0\\materialdesignthemes.4.9.0.nupkg.sha512",
-    "C:\\Users\\admin\\.nuget\\packages\\microsoft.xaml.behaviors.wpf\\1.1.39\\microsoft.xaml.behaviors.wpf.1.1.39.nupkg.sha512"
+    "C:\\Users\\Admin\\.nuget\\packages\\materialdesigncolors\\2.1.4\\materialdesigncolors.2.1.4.nupkg.sha512",
+    "C:\\Users\\Admin\\.nuget\\packages\\materialdesignthemes\\4.9.0\\materialdesignthemes.4.9.0.nupkg.sha512",
+    "C:\\Users\\Admin\\.nuget\\packages\\microsoft.xaml.behaviors.wpf\\1.1.39\\microsoft.xaml.behaviors.wpf.1.1.39.nupkg.sha512"
   ],
   "logs": []
 }
