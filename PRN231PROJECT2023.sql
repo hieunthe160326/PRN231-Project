@@ -4,121 +4,90 @@ GO
 /*******************************************************************************
    Drop database if it exists
 ********************************************************************************/
-IF EXISTS (SELECT name FROM master.dbo.sysdatabases WHERE name = N'PRN231PROJECT')
+IF EXISTS (SELECT name FROM master.dbo.sysdatabases WHERE name = N'PRN221PROJECT')
 BEGIN
-	ALTER DATABASE [PRN231PROJECT] SET OFFLINE WITH ROLLBACK IMMEDIATE;
-	ALTER DATABASE [PRN231PROJECT] SET ONLINE;
-	DROP DATABASE [PRN231PROJECT];
+	ALTER DATABASE [PRN221PROJECT] SET OFFLINE WITH ROLLBACK IMMEDIATE;
+	ALTER DATABASE [PRN221PROJECT] SET ONLINE;
+	DROP DATABASE [PRN221PROJECT];
 END
 
 GO
 
-CREATE DATABASE [PRN231PROJECT]
+CREATE DATABASE [PRN221PROJECT]
 
 GO
 
-USE [PRN231PROJECT]
-
+USE [PRN221PROJECT]
 GO
-create table Roles(
-RoleId int primary key identity(1,1),
-RoleName nvarchar(100)
-)
-GO
-create table Users(
-UserId int primary key identity(1,1) not null,
-RoleId int foreign key references Roles(RoleId),
-FullName nvarchar(100),
-DateOfBirth datetime,
-Username nvarchar(100),
-[Password] nvarchar(100),
-Email nvarchar(100),
-PhoneNumber nvarchar(100),
+create table tblKhachHang(
+MakH varchar(10) primary key ,
+TenKH nvarchar(50),
+GT bit,
+Diachi nvarchar(50),
+NgaySinh smalldatetime,
 active bit 
 )
 
 GO
-create table Rooms(
-RoomId int primary key identity(1,1),
-RoomName nvarchar(100),
-NumberOfSeats int,
-)
-
-GO
-create table Seats(
-SeatId int primary key identity(1,1),
-RoomId int foreign key references Rooms(RoomId),
-[status] bit,
-SeatName nvarchar(50)
-)
-
-GO
-
-create table Movies(
-MovieId int primary key identity(1,1) not null,
-Title nvarchar(100),
-DurationMinutes int,
-isReleased bit,
-URLImages nvarchar(100)
+create table tblHoadon(
+MaHD numeric(18,0) primary key identity(1,1),
+MaKH varchar(10) foreign key references tblKhachHang(MaKH) ,
+NgayHD smalldatetime
 )
 GO
 
-create table Shows(
-ShowId int primary key identity(1,1) not null,
-MovieId int foreign key references Movies(MovieId),
-Prices money,
-StartTime datetime,
-EndTime datetime,
-RoomId int foreign key references Rooms(RoomId)
-)
-Go
-create table Bills(
-BillId int primary key identity(1,1) not null,
-SeatId int foreign key references Seats(SeatId) ,
-UserId int foreign key references Users(UserId) ,
-ShowId int foreign key references Shows(ShowId) 
+create table tblMatHang(
+MaHang varchar(10) primary key,
+TenHang nvarchar(50),
+DVT nvarchar(50),
+Gia real,
+active bit 
 )
 GO
 
-insert into Roles values( N'Admin')
-insert into Roles values(N'Customer')
-insert into Roles values(N'Staff')
+create table tblChiTietHD(
+MaChiTietHD numeric(18,0) primary key identity(1,1),
+MaHD numeric(18,0) foreign key references tblHoadon(MaHD),
+MaHang varchar(10) foreign key references tblMatHang(MaHang),
+Soluong int
+)
+GO
 
+create table tblUser(
+Username varchar(50),
+Pass int
+)
+GO
+
+insert into tblUser values('hieu', 123)
+insert into tblUser values('admin', 123)
+insert into tblUser values('tadinh_tien', 12345678)
 
 Go
-insert into Users values(1, N'hieu', N'1/1/2000', N'hieu','123', 'hieuhieut123@gmail.com', N'0934386938', 1)
-insert into Users values(2, N'hieu', N'1/1/2000', N'htz', '123','hieuhieut123@gmail.com', N'0934386438', 1)
-insert into Users values(3, N'hieu', N'1/1/2000', N'htz123', '123','hieuhieut123@gmail.com', N'0934386438', 1)
-
-Go
-insert into Rooms values('A', 30)
-insert into Rooms values('B', 50)
-insert into Rooms values('H', 40)
+insert into tblKhachHang values('1', N'Chu Đức Tâm', 1, N'Sài Gòn', '12/12/1994',1)
+insert into tblKhachHang values('2', N'Văn Mai Hương', 0, 'HN', '12/12/1985',1)
+insert into tblKhachHang values('3', N'Hoang Thanh Chung', 1, 'hn', '12/12/1994',1)
+insert into tblKhachHang values('4', N'Nguyễn Hà', 1, 'ND', '01/01/1990',1)
+insert into tblKhachHang values('KH01', N'Hoàng Thanh Trang', 0, N'Gia Lâm, Hà Nội', '12/21/1969',1)
+insert into tblKhachHang values('KH02', N'Nguyễn Vĩ Nhung', 1, N'Vĩnh Long', '07/22/1999',1)
 
 GO
-insert into Seats values(1, 0, 'A1')
-insert into Seats values(1, 0, 'A2')
-insert into Seats values(1, 0, 'A3')
-insert into Seats values(1, 0, 'A4')
-insert into Seats values(1, 0, 'A5')
-insert into Seats values(1, 0, 'B1')
-insert into Seats values(1, 0, 'B2')
-insert into Seats values(1, 0, 'B3')
-insert into Seats values(1, 0, 'B4')
-insert into Seats values(1, 0, 'B5')
+insert into tblMatHang values('K01', N'Bàn phím', N'Chiếc', 200000,1)
+insert into tblMatHang values('K02', N'Ban phim ao', N'Chiếc', 120000,1)
+insert into tblMatHang values('M01', N'Chuột quang', N'Con', 120000,1)
+insert into tblMatHang values('M02', N'Man hinh hong', N'Cai', 2000000,1)
+insert into tblMatHang values('R01', N'Bàn phím T1', N'Thanh', 200000,1)
 
 Go
-insert into Movies values( N'Inception', 120, 1, '')
-insert into Movies values( N'Pulp Fiction', 119, 1, '')
-insert into Movies values( N'Little Women', 92, 1, '')
-insert into Movies values( N'The Revenant', 115, 1, '')
+insert into tblHoadon values('1', '10/9/2022')
+insert into tblHoadon values('1', '10/10/2022')
+insert into tblHoadon values('2', '10/9/2022')
+insert into tblHoadon values('2', '10/9/2022')
 
 Go
-insert into Shows values(1, 100000, N'2023-10-30 14:30:00', N'2023-10-30 16:30:00', 1)
-insert into Shows values(1, 100000, N'2023-10-30 7:30:00', N'2023-10-30 9:30:00', 1)
-insert into Shows values(1, 100000, N'2023-10-30 10:30:00', N'2023-10-30 12:30:00', 2)
-insert into Shows values(2, 120000, N'2023-10-30 14:30:00', N'2023-10-30 16:30:00', 3)
-insert into Shows values(2, 120000, N'2023-10-30 7:30:00', N'2023-10-30 9:00:00', 3)
+insert into tblChiTietHD values(1, 'K01', 5)
+insert into tblChiTietHD values(1, 'K02', 3)
+insert into tblChiTietHD values(1, 'R01', 1)
 
 GO
 
