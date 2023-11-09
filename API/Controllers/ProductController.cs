@@ -28,7 +28,7 @@ namespace API.Controllers
             var res = context.TblMatHangs.Select(a => a.Dvt).ToList();
             return res;
         }
-        [HttpGet("Delete")]
+        [HttpGet("Delete/{id}")]
         public IActionResult Delete(string id)
         {
             TblMatHang c = context.TblMatHangs.FirstOrDefault(a => a.MaHang.Equals(id));

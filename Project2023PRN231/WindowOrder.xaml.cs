@@ -1,10 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Project2023PRN221.Models;
+using Project2023PRN231.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -49,33 +51,27 @@ namespace Project2023PRN221
             cbProductName.ItemsSource = JsonConvert.DeserializeObject<List<string>>(res);
         }
 
+        private async void GetListOrderDetail()
+        {
+            var res = await client.GetStringAsync("getorderdetaillist");
+            listOrder.ItemsSource = JsonConvert.DeserializeObject<List<OrderDetailDTO>>(res); ;
+        }
+
+        private async void GetListOrderDetailById()
+        {
+            var res = await client.GetStringAsync("getorderdetaillistbyid/" + txtOrderId.Text);
+            listOrder.ItemsSource = JsonConvert.DeserializeObject<List<OrderDetailDTO>>(res); ;
+        }
+
         private void LoadData()
         {
             if (txtOrderId.Text != String.Empty)
             {
-                var data2 = context.TblChiTietHds.Select(a => new
-                {
-                    MaHd = a.MaHd,
-                    MaKh = a.MaHdNavigation.MaKh,
-                    TenHang = a.MaHangNavigation.TenHang,
-                    Gia = a.MaHangNavigation.Gia,
-                    Soluong = a.Soluong.ToString()
-                }).Where(a => a.MaHd == decimal.Parse(txtOrderId.Text)).
-                    ToList();
-                listOrder.ItemsSource = data2;
+                GetListOrderDetailById();
             }
             else
             {
-                var data = context.TblChiTietHds.Select(a => new
-                {
-                    MaHd = a.MaHdNavigation.MaHd,
-                    MaKh = a.MaHdNavigation.MaKh,
-                    TenHang = a.MaHangNavigation.TenHang,
-                    Gia = a.MaHangNavigation.Gia,
-                    Soluong = a.Soluong.ToString()
-                }).ToList();
-
-                listOrder.ItemsSource = data;
+                GetListOrderDetail();
             }
         }
 
@@ -100,6 +96,11 @@ namespace Project2023PRN221
             btnRemoveOrder.IsEnabled = false;
         }
 
+        private async void AddOrder(TblHoadon p)
+        {
+            await client.PostAsJsonAsync("addorder", p);
+        }
+
         private void btnOrder_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -109,14 +110,11 @@ namespace Project2023PRN221
                     MaKh = txtCustomerId.Text,
                     NgayHd = DateTime.Today,
                 };
-                context.TblHoadons.Add(p);
-                if (context.SaveChanges() > 0)
-                {
-                    btnUpdateOrder.IsEnabled = true;
-                    btnRemoveOrder.IsEnabled = true;
-                    btnOrder.IsEnabled = false;
-                    LoadData();
-                }
+                AddOrder(p);
+                btnUpdateOrder.IsEnabled = true;
+                btnRemoveOrder.IsEnabled = true;
+                btnOrder.IsEnabled = false;
+                LoadData();
             }
             catch (Exception ex)
             {
@@ -124,10 +122,18 @@ namespace Project2023PRN221
             }
         }
 
+        bool exist = true;
+        private async void CheckOrderDetailExist(int orderId, string productName)
+        {
+            var res = await client.GetStringAsync("checkorderdetailexist/" + orderId + "/" + productName);
+            exist = JsonConvert.DeserializeObject<bool>(res); 
+        }
+
         private void btnUpdateOrder_Click(object sender, RoutedEventArgs e)
         {
             TblChiTietHd data = context.TblChiTietHds.FirstOrDefault(a => a.MaHd == decimal.Parse(txtOrderId.Text)
          && a.MaHangNavigation.TenHang.Equals(cbProductName.Text));
+
             if (data != null)
             {
                 data.Soluong = Int32.Parse(txtQuantity.Text);
@@ -159,18 +165,21 @@ namespace Project2023PRN221
             }
         }
 
+        private async void DeleteOrderDetail(int id)
+        {
+            await client.DeleteAsync("deleteorderdetail/" + id);
+        }
         private void btnRemoveOrder_Click(object sender, RoutedEventArgs e)
         {
-            TblChiTietHd data = context.TblChiTietHds.OrderBy(a => a.MaChiTietHd).LastOrDefault(a => a.MaHd == decimal.Parse(txtOrderId.Text));
-            if (data != null)
+
+            if (txtOrderId.Text != String.Empty)
             {
-                context.TblChiTietHds.Remove(data);
-                if (context.SaveChanges() > 0)
-                {
-                    LoadData();
-                }
+                int a = Int32.Parse(txtOrderId.Text);
+                DeleteOrderDetail(a);
+                LoadData();
             }
         }
+
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
@@ -203,7 +212,7 @@ namespace Project2023PRN221
 
         private void cbProductName_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(cbProductName.Text != String.Empty)
+            if (cbProductName.Text != String.Empty)
             {
                 var product = context.TblMatHangs.FirstOrDefault(a => a.TenHang.Equals(cbProductName.SelectedItem.ToString()) && a.Active == true);
                 if (product != null)
@@ -211,7 +220,7 @@ namespace Project2023PRN221
                     txtPrice.Text = product.Gia.ToString();
                     txtProductId.Text = product.MaHang.ToString();
                 }
-            } 
+            }
         }
 
         private void txtOrderId_TextChanged(object sender, TextChangedEventArgs e)

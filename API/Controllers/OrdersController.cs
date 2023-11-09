@@ -16,10 +16,8 @@ namespace API.Controllers
         }
 
         [HttpGet("GetOrderDetailListById/{id}")]
-        public IActionResult GetOrderDetailList(int id)
+        public IActionResult GetOrderDetailListById(int id)
         {
-            if (id != null)
-            {
                 var res = context.TblChiTietHds.Select(a => new
                 {
                     MaHd = a.MaHd,
@@ -29,9 +27,11 @@ namespace API.Controllers
                     Soluong = a.Soluong.ToString()
                 }).Where(a => a.MaHd == id).ToList();
                 return Ok(res);
-            }
-            else
-            {
+        }
+
+        [HttpGet("GetOrderDetailList")]
+        public IActionResult GetOrderDetailList()
+        {
                 var res = context.TblChiTietHds.Select(a => new
                 {
                     MaHd = a.MaHd,
@@ -41,7 +41,6 @@ namespace API.Controllers
                     Soluong = a.Soluong.ToString()
                 }).ToList();
                 return Ok(res);
-            }
         }
 
         [HttpPost("AddOrder")]
@@ -64,7 +63,7 @@ namespace API.Controllers
         {
             TblChiTietHd data = context.TblChiTietHds.FirstOrDefault(a => a.MaHd == orderId
         && a.MaHangNavigation.TenHang.Equals(productName));
-
+            
             data.Soluong = quantity;
             context.SaveChanges();
             return Ok();
@@ -78,7 +77,7 @@ namespace API.Controllers
             return Ok();
         }
 
-        [HttpDelete("DeleteOrderDetail")]
+        [HttpDelete("DeleteOrderDetail/{id}")]
         public IActionResult deleteOrderDetail(int id)
         {
             TblChiTietHd data = context.TblChiTietHds.OrderBy(a => a.MaChiTietHd).LastOrDefault(a => a.MaHd == id);
@@ -99,6 +98,21 @@ namespace API.Controllers
         {
             var res = context.TblMatHangs.Where(a => a.Active == true).Select(a => a.TenHang).ToList();
             return res;
+        }
+
+        [HttpGet("CheckOrderDetailExist/{orderId}/{productName}")]
+        public IActionResult CheckOrderDetailExist(int orderId, string productName)
+        {
+            TblChiTietHd data = context.TblChiTietHds.FirstOrDefault(a => a.MaHd == orderId
+         && a.MaHangNavigation.TenHang.Equals(productName));
+            if(data != null)
+            {
+                return Ok(true);
+            }
+            else
+            {
+                return Ok(false);
+            }
         }
     }
 }
