@@ -30,18 +30,24 @@ namespace Project2023PRN221
         public WindowOrder()
         {
             context = new PRN231PROJECTContext();
-            client.BaseAddress = new Uri("https://localhost:7135/api/");
+            client.BaseAddress = new Uri("https://localhost:7135/api/Orders/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(
                 new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json")
                 );
             InitializeComponent();
-            var res = client.GetStringAsync("getlistproduct");
-            //cbProductName.ItemsSource = JsonConvert.DeserializeObject<List>();
+            var res = client.GetStringAsync("getlistproductname");
+            GetListProductName();
             btnOrder.IsEnabled = false;
             btnUpdateOrder.IsEnabled = false;
             btnRemoveOrder.IsEnabled = false;
             LoadData();
+        }
+
+        private async void GetListProductName()
+        {
+            var res = await client.GetStringAsync("getlistproductname");
+            cbProductName.ItemsSource = JsonConvert.DeserializeObject<List<string>>(res);
         }
 
         private void LoadData()

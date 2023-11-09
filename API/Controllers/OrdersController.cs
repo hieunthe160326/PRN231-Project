@@ -94,11 +94,11 @@ namespace API.Controllers
             }
         }
 
-        [HttpGet("GetListProduct")]
-        public IActionResult GetListProduct()
+        [HttpGet("GetListProductName")]
+        public IEnumerable<string> GetListProductName()
         {
             var res = context.TblMatHangs.Where(a => a.Active == true).Select(a => a.TenHang).ToList();
-            return Ok(res);
+            return res;
         }
     }
 }
