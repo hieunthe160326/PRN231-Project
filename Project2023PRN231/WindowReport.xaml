@@ -26,11 +26,11 @@
                       Margin="50"
                       DataTooltip="{x:Null}">
             <lvc:PieChart.Series>
-                <lvc:PieSeries Title="Product Percentage"
+                <!--<lvc:PieSeries Title="Product Percentage"
                                Values="{Binding ProductsPercentages}"
                                DataLabels="True" 
-                               LabelPoint="{Binding PointLabel}"/>
-                <!--<lvc:PieSeries Title="Maria"
+                               LabelPoint="{Binding PointLabel}"/>-->
+                <lvc:PieSeries Title="Maria"
                                Values="3"
                                DataLabels="True"
                                LabelPoint="{Binding PointLabel}" />
@@ -45,7 +45,7 @@
                 <lvc:PieSeries Title="Frederic"
                                Values="2"
                                DataLabels="True"
-                               LabelPoint="{Binding PointLabel}" />-->
+                               LabelPoint="{Binding PointLabel}" />
             </lvc:PieChart.Series>
         </lvc:PieChart>
     </Grid>

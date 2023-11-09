@@ -21,10 +21,10 @@ namespace Project2023PRN221
     /// </summary>
     public partial class WindowProduct : Window
     {
-        private PRN221PROJECTContext context;
+        private PRN231PROJECTContext context;
         public WindowProduct()
         {
-            context = new PRN221PROJECTContext();
+            context = new PRN231PROJECTContext();
             InitializeComponent();
             cbProductType.ItemsSource = context.TblMatHangs.Select(a => a.Dvt).ToList();
             txtSearch.ItemsSource = context.TblMatHangs.Where(a => a.Active == true).Select(a => a.TenHang).ToList();

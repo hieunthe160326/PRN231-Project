@@ -22,10 +22,10 @@ namespace Project2023PRN221
     /// </summary>
     public partial class WindowCustomer : Window
     {
-        private PRN221PROJECTContext context;
+        private PRN231PROJECTContext context;
         public WindowCustomer()
         {
-            context = new PRN221PROJECTContext();
+            context = new PRN231PROJECTContext();
             InitializeComponent();
             txtSearch.ItemsSource = context.TblKhachHangs.Where(a => a.Active == true).Select(a => a.TenKh).ToList();
             LoadData();

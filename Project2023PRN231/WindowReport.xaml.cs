@@ -24,7 +24,7 @@ namespace Project2023PRN221
     /// </summary>
     public partial class WindowReport : Window, INotifyPropertyChanged
     {
-        private PRN221PROJECTContext context;
+        private PRN231PROJECTContext context;
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -54,7 +54,7 @@ namespace Project2023PRN221
             PointLabel = chartPoint =>
                 string.Format("{0} ({1:P})", chartPoint.Y, chartPoint.Participation);
 
-            context = new PRN221PROJECTContext();
+            context = new PRN231PROJECTContext();
             DataContext = this;
 
             var orderDetail = context.TblChiTietHds.ToList();

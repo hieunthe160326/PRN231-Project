@@ -23,11 +23,11 @@ namespace Project2023PRN221
     /// </summary>
     public partial class WindowLogin : Window
     {
-        private PRN221PROJECTContext context;
+        private PRN231PROJECTContext context;
         public WindowLogin()
         {
             InitializeComponent();
-            context = new PRN221PROJECTContext();
+            context = new PRN231PROJECTContext();
         }
 
         public bool IsDarkTheme { get; set; }

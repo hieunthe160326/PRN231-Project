@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Project2023PRN221.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -23,12 +25,19 @@ namespace Project2023PRN221
     /// </summary>
     public partial class WindowOrder : Window
     {
-        private PRN221PROJECTContext context;
+        HttpClient client = new HttpClient();
+        private readonly PRN231PROJECTContext context;
         public WindowOrder()
         {
-            context = new PRN221PROJECTContext();
+            context = new PRN231PROJECTContext();
+            client.BaseAddress = new Uri("https://localhost:7135/api/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(
+                new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json")
+                );
             InitializeComponent();
-            cbProductName.ItemsSource = context.TblMatHangs.Where(a => a.Active == true).Select(a => a.TenHang).ToList();
+            var res = client.GetStringAsync("getlistproduct");
+            //cbProductName.ItemsSource = JsonConvert.DeserializeObject<List>();
             btnOrder.IsEnabled = false;
             btnUpdateOrder.IsEnabled = false;
             btnRemoveOrder.IsEnabled = false;
