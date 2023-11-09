@@ -36,7 +36,6 @@ namespace Project2023PRN221
                 new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json")
                 );
             InitializeComponent();
-            var res = client.GetStringAsync("getlistproductname");
             GetListProductName();
             btnOrder.IsEnabled = false;
             btnUpdateOrder.IsEnabled = false;

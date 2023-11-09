@@ -4,20 +4,20 @@ GO
 /*******************************************************************************
    Drop database if it exists
 ********************************************************************************/
-IF EXISTS (SELECT name FROM master.dbo.sysdatabases WHERE name = N'PRN221PROJECT')
+IF EXISTS (SELECT name FROM master.dbo.sysdatabases WHERE name = N'PRN231PROJECT')
 BEGIN
-	ALTER DATABASE [PRN221PROJECT] SET OFFLINE WITH ROLLBACK IMMEDIATE;
-	ALTER DATABASE [PRN221PROJECT] SET ONLINE;
-	DROP DATABASE [PRN221PROJECT];
+	ALTER DATABASE [PRN231PROJECT] SET OFFLINE WITH ROLLBACK IMMEDIATE;
+	ALTER DATABASE [PRN231PROJECT] SET ONLINE;
+	DROP DATABASE [PRN231PROJECT];
 END
 
 GO
 
-CREATE DATABASE [PRN221PROJECT]
+CREATE DATABASE [PRN231PROJECT]
 
 GO
 
-USE [PRN221PROJECT]
+USE [PRN231PROJECT]
 GO
 create table tblKhachHang(
 MakH varchar(10) primary key ,
