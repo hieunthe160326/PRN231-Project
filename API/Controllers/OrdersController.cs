@@ -59,7 +59,7 @@ namespace API.Controllers
         }
 
         [HttpPut("UpdateOrderDetail")]
-        public IActionResult UpdateOrderDetail(int orderId, string productName, int quantity)
+        public IActionResult UpdateOrderDetail(int orderId, string productName,int quantity)
         {
             TblChiTietHd data = context.TblChiTietHds.FirstOrDefault(a => a.MaHd == orderId
         && a.MaHangNavigation.TenHang.Equals(productName));
@@ -69,7 +69,7 @@ namespace API.Controllers
             return Ok();
         }
 
-        [HttpPost("addOrderDetail")]
+        [HttpPost("AddOrderDetail")]
         public IActionResult addOrderDetail(TblChiTietHd p)
         {
             context.TblChiTietHds.Add(p);

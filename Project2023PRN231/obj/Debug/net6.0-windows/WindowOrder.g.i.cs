@@ -184,7 +184,7 @@ namespace Project2023PRN221 {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/Project2023PRN231;V1.0.0.0;component/windoworder.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Project2023PRN231;component/windoworder.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\WindowOrder.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
