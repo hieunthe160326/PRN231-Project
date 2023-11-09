@@ -28,5 +28,20 @@ namespace API.Controllers
             var res = context.TblMatHangs.Select(a => a.Dvt).ToList();
             return res;
         }
+        [HttpGet("Delete")]
+        public IActionResult Delete(string id)
+        {
+            TblMatHang c = context.TblMatHangs.FirstOrDefault(a => a.MaHang.Equals(id));
+            if (c != null)
+            {
+                c.Active = false;
+                context.SaveChanges();
+                return Ok();
+            }
+            else
+            {
+                return BadRequest("cant delete product");
+            }
+        }
     }
 }
