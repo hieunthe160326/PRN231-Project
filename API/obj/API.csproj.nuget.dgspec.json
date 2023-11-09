@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Admin\\Desktop\\ProjectPRN231\\a\\PRN231-Project\\API\\API.csproj": {}
+    "F:\\TERM8\\PRN231\\PRN231-Project\\API\\API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Admin\\Desktop\\ProjectPRN231\\a\\PRN231-Project\\API\\API.csproj": {
+    "F:\\TERM8\\PRN231\\PRN231-Project\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Admin\\Desktop\\ProjectPRN231\\a\\PRN231-Project\\API\\API.csproj",
+        "projectUniqueName": "F:\\TERM8\\PRN231\\PRN231-Project\\API\\API.csproj",
         "projectName": "API",
-        "projectPath": "C:\\Users\\Admin\\Desktop\\ProjectPRN231\\a\\PRN231-Project\\API\\API.csproj",
-        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Admin\\Desktop\\ProjectPRN231\\a\\PRN231-Project\\API\\obj\\",
+        "projectPath": "F:\\TERM8\\PRN231\\PRN231-Project\\API\\API.csproj",
+        "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
+        "outputPath": "F:\\TERM8\\PRN231\\PRN231-Project\\API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -78,7 +78,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.416\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }

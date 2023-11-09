@@ -1,7 +1,9 @@
-﻿using Project2023PRN221.Models;
+﻿using Newtonsoft.Json;
+using Project2023PRN221.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,16 +23,26 @@ namespace Project2023PRN221
     /// </summary>
     public partial class WindowProduct : Window
     {
+        HttpClient client = new HttpClient();
         private PRN231PROJECTContext context;
         public WindowProduct()
         {
             context = new PRN231PROJECTContext();
+            client.BaseAddress = new Uri("https://localhost:7135/api/Product/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(
+                new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json")
+                );
             InitializeComponent();
-            cbProductType.ItemsSource = context.TblMatHangs.Select(a => a.Dvt).ToList();
+            GetTypeProduct();
             txtSearch.ItemsSource = context.TblMatHangs.Where(a => a.Active == true).Select(a => a.TenHang).ToList();
             LoadData();
         }
-
+        private async void GetTypeProduct() 
+        {
+            var res = await client.GetStringAsync("gettypeproduct");
+            cbProductType.ItemsSource = JsonConvert.DeserializeObject<List<string>>(res);
+        }
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
             txtProductId.Text = String.Empty;
@@ -115,9 +127,11 @@ namespace Project2023PRN221
                 MessageBox.Show(ex.Message);
             }
         }
-        private void LoadData()
+        private async void LoadData()
         {
-            listProduct.ItemsSource = context.TblMatHangs.Where(a => a.Active == true).ToList();
+            //listProduct.ItemsSource = context.TblMatHangs.Where(a => a.Active == true).ToList();
+            var res = await client.GetStringAsync("ListProduct");
+            listProduct.ItemsSource = JsonConvert.DeserializeObject<List<TblMatHang>>(res);
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
