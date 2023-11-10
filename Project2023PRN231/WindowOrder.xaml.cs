@@ -28,7 +28,6 @@ namespace Project2023PRN221
     public partial class WindowOrder : Window
     {
         HttpClient client = new HttpClient();
-        private readonly PRN231PROJECTContext context;
         public WindowOrder()
         {
             context = new PRN231PROJECTContext();
@@ -264,5 +263,6 @@ namespace Project2023PRN221
                 }
             }
         }
+        private readonly PRN231PROJECTContext context;
     }
 }

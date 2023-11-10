@@ -25,7 +25,6 @@ namespace Project2023PRN221
     public partial class WindowProduct : Window
     {
         HttpClient client = new HttpClient();
-        private PRN231PROJECTContext context;
         public WindowProduct()
         {
             context = new PRN231PROJECTContext();
@@ -185,5 +184,7 @@ namespace Project2023PRN221
                 cbProductType.Text = type;
             }
         }
+        private PRN231PROJECTContext context;
+
     }
 }

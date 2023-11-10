@@ -26,7 +26,6 @@ namespace Project2023PRN221
     public partial class WindowCustomer : Window
     {
         HttpClient client = new HttpClient();
-        private PRN231PROJECTContext context;
         public WindowCustomer()
         {
             InitializeComponent();
@@ -225,7 +224,6 @@ namespace Project2023PRN221
                 MessageBox.Show("The customer doesn't exist");
             }
         }
-
-       
+        private PRN231PROJECTContext context;
     }
 }
