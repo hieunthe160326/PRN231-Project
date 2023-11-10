@@ -71,5 +71,12 @@ namespace Project2023PRN221
         {
             Application.Current.Shutdown();
         }
+
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
+            this.Hide();
+        }
     }
 }

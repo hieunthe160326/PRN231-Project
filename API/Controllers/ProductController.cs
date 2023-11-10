@@ -43,5 +43,29 @@ namespace API.Controllers
                 return BadRequest("cant delete product");
             }
         }
+
+        [HttpPut("UpdateProduct/{id}")]
+        public IActionResult UpdateProduct(TblMatHang p)
+        {
+            context.TblMatHangs.Update(p);
+            context.SaveChanges();
+            return Ok();
+        }
+
+
+        [HttpPost("AddProduct")]
+        public IActionResult AddProduct(TblMatHang p)
+        {
+            try
+            {
+                context.TblMatHangs.Add(p);
+                context.SaveChanges();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Can't add Product");
+            }
+        }
     }
 }

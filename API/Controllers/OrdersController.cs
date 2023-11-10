@@ -35,7 +35,7 @@ namespace API.Controllers
                 var res = context.TblChiTietHds.Select(a => new
                 {
                     MaHd = a.MaHd,
-                    MaKh = a.MaHdNavigation.MaKh,
+                    MaKh = a.MaHdNavigation.MaKh.ToString(),
                     TenHang = a.MaHangNavigation.TenHang,
                     Gia = a.MaHangNavigation.Gia,
                     Soluong = a.Soluong.ToString()

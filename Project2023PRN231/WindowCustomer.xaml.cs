@@ -16,6 +16,7 @@ using static System.Runtime.CompilerServices.RuntimeHelpers;
 using System.Xml.Linq;
 using System.Net.Http;
 using Newtonsoft.Json;
+using System.Net.Http.Json;
 
 namespace Project2023PRN221
 {
@@ -28,13 +29,13 @@ namespace Project2023PRN221
         private PRN231PROJECTContext context;
         public WindowCustomer()
         {
-            context = new PRN231PROJECTContext();
             InitializeComponent();
             client.BaseAddress = new Uri("https://localhost:7135/api/Customers/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(
                 new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json")
                 );
+            context = new PRN231PROJECTContext();
             GetListCustomerName();
             LoadData();
         }
@@ -118,8 +119,6 @@ namespace Project2023PRN221
                 };
                 if (customer != null)
                 {
-                    //context.TblKhachHangs.Add(customer);
-                    //context.SaveChanges();
                     AddCustomer(customer);
                     MessageBox.Show("Add customer successfully");
                 }
@@ -164,60 +163,69 @@ namespace Project2023PRN221
             {
                 MessageBox.Show(ex.Message);
             }
-}
+        }
 
-private void btnDelete_Click(object sender, RoutedEventArgs e)
-{
-    try
-    {
-        TblKhachHang c = context.TblKhachHangs.FirstOrDefault(a => a.MakH.Equals(txtCustomerId.Text));
-        if (c != null)
+        private async void DisableCustomer(string cid)
         {
-            c.Active = false;
+            await client.GetStringAsync("DisableCustomer/" + cid);
+        }
 
-            if (context.SaveChanges() > 0)
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            try
             {
-                LoadData();
-                MessageBox.Show("Delete customer successfully");
+                //TblKhachHang c = context.TblKhachHangs.FirstOrDefault(a => a.MakH.Equals(txtCustomerId.Text));
+                //if (c != null)
+                //{
+                //    c.Active = false;
+
+                //    if (context.SaveChanges() > 0)
+                //    {
+                //        LoadData();
+                //        MessageBox.Show("Delete customer successfully");
+                //    }
+
+                //}
+                DisableCustomer(txtCustomerId.Text);
             }
-
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            LoadData();
         }
-    }
-    catch (Exception ex)
-    {
-        MessageBox.Show(ex.Message);
-    }
-}
 
-private void btnBack_Click(object sender, RoutedEventArgs e)
-{
-    MainWindow mainWindow = new MainWindow();
-    mainWindow.Show();
-    this.Hide();
-}
-
-private void btnSearch_Click(object sender, RoutedEventArgs e)
-{
-    var customer = context.TblKhachHangs.FirstOrDefault(a => a.TenKh.Contains(txtSearch.Text) || a.MakH.Contains(txtSearch.Text) || a.Diachi.Contains(txtSearch.Text));
-    if (customer != null)
-    {
-        txtCustomerName.Text = customer.TenKh;
-        txtCustomerId.Text = customer.MakH.ToString();
-        txtCustomerAddress.Text = customer.Diachi;
-        txtCustomerDob.Text = customer.NgaySinh.ToString();
-        if (customer.Gt == true)
+        private void btnBack_Click(object sender, RoutedEventArgs e)
         {
-            rbMale.IsChecked = true;
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
+            this.Hide();
         }
-        else
+
+        private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
-            rbFemale.IsChecked = true;
+            var customer = context.TblKhachHangs.FirstOrDefault(a => a.TenKh.Contains(txtSearch.Text) || a.MakH.Contains(txtSearch.Text) || a.Diachi.Contains(txtSearch.Text));
+            if (customer != null)
+            {
+                txtCustomerName.Text = customer.TenKh;
+                txtCustomerId.Text = customer.MakH.ToString();
+                txtCustomerAddress.Text = customer.Diachi;
+                txtCustomerDob.Text = customer.NgaySinh.ToString();
+                if (customer.Gt == true)
+                {
+                    rbMale.IsChecked = true;
+                }
+                else
+                {
+                    rbFemale.IsChecked = true;
+                }
+            }
+            else
+            {
+                MessageBox.Show("The customer doesn't exist");
+            }
         }
-    }
-    else
-    {
-        MessageBox.Show("The customer doesn't exist");
-    }
-}
+
+       
     }
 }
