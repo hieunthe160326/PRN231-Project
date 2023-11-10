@@ -28,7 +28,7 @@ namespace API.Controllers
             var res = context.TblMatHangs.Select(a => a.Dvt).ToList();
             return res;
         }
-        [HttpGet("Delete/{id}")]
+        [HttpPut("DeleteProduct")]
         public IActionResult Delete(string id)
         {
             TblMatHang c = context.TblMatHangs.FirstOrDefault(a => a.MaHang.Equals(id));
@@ -42,6 +42,33 @@ namespace API.Controllers
             {
                 return BadRequest("cant delete product");
             }
+        }
+
+        [HttpPost("AddProduct")]
+        public IActionResult AddProduct(TblMatHang p)
+        {
+            try
+            {
+                context.TblMatHangs.Add(p);
+                context.SaveChanges();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Can't add Product");
+            }
+        }
+
+        [HttpPut("UpdateProduct")]
+        public IActionResult UpdateOrderDetail(TblMatHang p)
+        {
+            TblMatHang data = context.TblMatHangs.FirstOrDefault(a => a.MaHang.Equals(p.MaHang));
+
+            data.TenHang = p.TenHang;
+            data.Dvt = p.Dvt;
+            data.Gia = p.Gia;
+            context.SaveChanges();
+            return Ok();
         }
     }
 }

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
@@ -68,7 +69,7 @@ namespace Project2023PRN221
                 };
                 if (product != null)
                 {
-                    context.TblMatHangs.Add(product);
+                    AddProduct(product);
                     context.SaveChanges();
                     LoadData();
                     MessageBox.Show("Add peoduct successfully");
@@ -79,24 +80,21 @@ namespace Project2023PRN221
                 MessageBox.Show(ex.Message);
             }
         }
+        private async void AddProduct(TblMatHang product)
+        {
+            await client.PostAsJsonAsync("addproduct", product);
+            LoadData();
+        }
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                TblMatHang c = context.TblMatHangs.FirstOrDefault(item => item.MaHang.Equals(txtProductId.Text));
-                if (c != null)
+                TblMatHang p = context.TblMatHangs.FirstOrDefault(item => item.MaHang.Equals(txtProductId.Text));
+                if (p != null)
                 {
-                    c.TenHang = txtProductName.Text;
-                    c.TenHang = txtProductName.Text;
-                    c.Dvt = cbProductType.Text;
-                    c.Gia = float.Parse(txtProductPrice.Text);
-
-                    if (context.SaveChanges() > 0)
-                    {
-                        LoadData();
-                        MessageBox.Show("Update product successfully");
-                    }
+                    UpdateProduct(p);
+                    LoadData();
                 }
             }
             catch (Exception ex)
@@ -104,28 +102,21 @@ namespace Project2023PRN221
                 MessageBox.Show(ex.Message);
             }
         }
-
+        private async void UpdateProduct(TblMatHang p)
+        {
+            await client.PutAsJsonAsync("updateproduct",p);
+        }
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if(txtProductId.Text != String.Empty)
             {
-                TblMatHang c = context.TblMatHangs.FirstOrDefault(a => a.MaHang.Equals(txtProductId.Text));
-                if (c != null)
-                {
-                    c.Active = false;
-
-                    if (context.SaveChanges() > 0)
-                    {
-                        LoadData();
-                        MessageBox.Show("Delete product successfully");
-                    }
-
-                }
+                DeleteProduct(txtProductId.Text);
+                LoadData();
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+        }
+        private async void DeleteProduct(string id)
+        {
+            await client.PutAsJsonAsync("deleteproduct/", id);
         }
         private async void LoadData()
         {
