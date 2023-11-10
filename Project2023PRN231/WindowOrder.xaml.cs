@@ -126,14 +126,23 @@ namespace Project2023PRN221
         private async void CheckOrderDetailExist(int orderId, string productName)
         {
             var res = await client.GetStringAsync("checkorderdetailexist/" + orderId + "/" + productName);
-            exist = JsonConvert.DeserializeObject<bool>(res); 
+            exist = JsonConvert.DeserializeObject<bool>(res);
         }
 
+        private async void AddOrderDetail(TblChiTietHd p)
+        {
+            await client.PostAsJsonAsync("addorderdetail", p);
+        }
+
+        private async void UpdateOrderDetailQuantity(int orderId, string productName, int quantity)
+        {
+            await client.PutAsJsonAsync("updateorderdetail"+"/"+orderId+"/"+productName, quantity);
+        }
         private void btnUpdateOrder_Click(object sender, RoutedEventArgs e)
         {
             TblChiTietHd data = context.TblChiTietHds.FirstOrDefault(a => a.MaHd == decimal.Parse(txtOrderId.Text)
          && a.MaHangNavigation.TenHang.Equals(cbProductName.Text));
-
+            //CheckOrderDetailExist(Int32.Parse(txtOrderId.Text), cbProductName.Text);
             if (data != null)
             {
                 data.Soluong = Int32.Parse(txtQuantity.Text);
@@ -141,6 +150,7 @@ namespace Project2023PRN221
                 {
                     LoadData();
                 }
+                //UpdateOrderDetailQuantity(Int32.Parse(txtOrderId.Text), cbProductName.Text, Int32.Parse(txtQuantity.Text));
             }
             else
             {
@@ -152,6 +162,7 @@ namespace Project2023PRN221
                         MaHang = txtProductId.Text.ToString(),
                         Soluong = Int32.Parse(txtQuantity.Text)
                     };
+                    //AddOrderDetail(p);
                     context.TblChiTietHds.Add(p);
                     if (context.SaveChanges() > 0)
                     {

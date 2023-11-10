@@ -288,7 +288,7 @@
                                             DisplayMemberBinding="{Binding Path=MaHd}" />
                             <GridViewColumn Header="Customer ID"
                                             Width="150"
-                                            DisplayMemberBinding="{Binding Path=MaKh}" />
+                                            DisplayMemberBinding="{Binding Path=MakH}" />
                             <GridViewColumn Header="Product"
                                             Width="120"
                                             DisplayMemberBinding="{Binding Path=TenHang}" />

@@ -10,8 +10,35 @@
         Title="WindowReport"
         Height="450"
         Width="800">
-    <Grid>
-        <!--<lvc:PieChart LegendLocation="Bottom"
+    <Border CornerRadius="20">
+        <Grid Background="CornflowerBlue">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="50" />
+
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0"
+                        Orientation="Horizontal">
+                <TextBlock Margin="350 20 0 0"
+                           HorizontalAlignment="Center"
+                           FontSize="30"
+                           FontWeight="Bold"
+                           Width="400"
+                           Text="REPORT"
+                           Foreground="LightBlue" />
+                <Button Name="btnCloseMain"
+                        Margin="0 0 0 0"
+                        Width="50"
+                        Height="50"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        Click="Exit_Click">
+                    <Image Source="Images/shutdown_mo.png" />
+                </Button>
+            </StackPanel>
+            <Grid Grid.Row="1">
+                <!--<lvc:PieChart LegendLocation="Bottom"
                       Hoverable="False"
                       InnerRadius="20"
                       Margin="50">
@@ -20,29 +47,45 @@
                            DataLabels="True" />
         </lvc:PieChart>-->
 
-        <lvc:PieChart LegendLocation="Bottom"
-                      DataClick="Chart_OnDataClick"
-                      Hoverable="True"
-                      Margin="50"
-                      DataTooltip="{x:Null}">
-            <lvc:PieChart.Series>
-                <!--<lvc:PieSeries Title="Product Percentage"
+                <lvc:PieChart LegendLocation="Bottom"
+                              DataClick="Chart_OnDataClick"
+                              Hoverable="True"
+                              Margin="50"
+                              DataTooltip="{x:Null}">
+                    <lvc:PieChart.Series>
+                        <!--<lvc:PieSeries Title="Product Percentage"
                                Values="{Binding ProductsPercentages}"
                                DataLabels="True" 
                                LabelPoint="{Binding PointLabel}"/>-->
-                <lvc:PieSeries Title="Ban phim"
-                               Values="3"
-                               DataLabels="True"
-                               LabelPoint="{Binding PointLabel}" />
-                <lvc:PieSeries Title="Chuot"
-                               Values="4"
-                               DataLabels="True"
-                               LabelPoint="{Binding PointLabel}" />
-                <lvc:PieSeries Title="Ban phim T1"
-                               Values="6"
-                               DataLabels="True"
-                               LabelPoint="{Binding PointLabel}" />
-            </lvc:PieChart.Series>
-        </lvc:PieChart>
-    </Grid>
+                        <lvc:PieSeries Title="Ban phim"
+                                       Values="3"
+                                       DataLabels="True"
+                                       LabelPoint="{Binding PointLabel}" />
+                        <lvc:PieSeries Title="Chuot"
+                                       Values="4"
+                                       DataLabels="True"
+                                       LabelPoint="{Binding PointLabel}" />
+                        <lvc:PieSeries Title="Ban phim T1"
+                                       Values="6"
+                                       DataLabels="True"
+                                       LabelPoint="{Binding PointLabel}" />
+                    </lvc:PieChart.Series>
+                </lvc:PieChart>
+            </Grid>
+            <StackPanel Grid.Row="2"
+                        Orientation="Horizontal">
+                <Button Margin="330 0 0 20"
+                        VerticalAlignment="Center"
+                        Name="btnBack"
+                        Style="{StaticResource MaterialDesignFlatMidBgButton}"
+                        materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                        Height="50"
+                        Width="120"
+                        materialDesign:ButtonAssist.CornerRadius="20"
+                        FontSize="20"
+                        Content="BACK"
+                        Click="btnBack_Click" />
+            </StackPanel>
+        </Grid>
+    </Border>
 </Window>

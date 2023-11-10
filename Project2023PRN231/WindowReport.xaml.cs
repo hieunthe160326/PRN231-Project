@@ -66,5 +66,17 @@ namespace Project2023PRN221
                 ProductsPercentages.Add(new ChartValues<decimal> { percentage });
             }
         }
+
+        private void Exit_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
+            this.Hide();
+        }
     }
 }

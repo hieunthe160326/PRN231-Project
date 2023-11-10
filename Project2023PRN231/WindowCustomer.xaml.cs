@@ -14,6 +14,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using static System.Runtime.CompilerServices.RuntimeHelpers;
 using System.Xml.Linq;
+using System.Net.Http;
+using Newtonsoft.Json;
+using System.Net.Http.Json;
 
 namespace Project2023PRN221
 {
@@ -22,13 +25,25 @@ namespace Project2023PRN221
     /// </summary>
     public partial class WindowCustomer : Window
     {
+        HttpClient client = new HttpClient();
         private PRN231PROJECTContext context;
         public WindowCustomer()
         {
-            context = new PRN231PROJECTContext();
             InitializeComponent();
-            txtSearch.ItemsSource = context.TblKhachHangs.Where(a => a.Active == true).Select(a => a.TenKh).ToList();
+            client.BaseAddress = new Uri("https://localhost:7135/api/Customers/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(
+                new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json")
+                );
+            context = new PRN231PROJECTContext();
+            GetListCustomerName();
             LoadData();
+        }
+
+        private async void GetListCustomerName()
+        {
+            var res = await client.GetStringAsync("GetCustomernNameList");
+            txtSearch.ItemsSource = JsonConvert.DeserializeObject<List<string>>(res);
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e)
@@ -36,9 +51,15 @@ namespace Project2023PRN221
             Application.Current.Shutdown();
         }
 
+        private async void GetListCustomer()
+        {
+            var res = await client.GetStringAsync("GetCustomerList");
+            listCus.ItemsSource = JsonConvert.DeserializeObject<List<TblKhachHang>>(res);
+        }
+
         private void LoadData()
         {
-            listCus.ItemsSource = context.TblKhachHangs.Where(a => a.Active == true).ToList();
+            GetListCustomer();
         }
 
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
@@ -47,7 +68,7 @@ namespace Project2023PRN221
             txtCustomerName.Text = String.Empty;
             txtCustomerAddress.Text = String.Empty;
             txtCustomerDob.Text = String.Empty;
-            if(rbFemale.IsChecked == true)
+            if (rbFemale.IsChecked == true)
             {
                 rbFemale.IsChecked = false;
             }
@@ -63,18 +84,23 @@ namespace Project2023PRN221
             if (item != null)
             {
                 var gender = ((TblKhachHang)item).Gt;
-             
-                    if (gender == true)
-                    {
-                        rbMale.IsChecked = true;
-                    }
-                    else
-                    {
-                        rbFemale.IsChecked = true;
-                    }
+
+                if (gender == true)
+                {
+                    rbMale.IsChecked = true;
+                }
+                else
+                {
+                    rbFemale.IsChecked = true;
+                }
             }
         }
 
+
+        private async void AddCustomer(TblKhachHang c)
+        {
+            await client.PostAsJsonAsync("AddCustomer", c);
+        }
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -86,23 +112,27 @@ namespace Project2023PRN221
                 {
                     MakH = nid,
                     TenKh = txtCustomerName.Text,
-                    Gt = rbMale.IsChecked == true?true:false,
+                    Gt = rbMale.IsChecked == true ? true : false,
                     Diachi = txtCustomerAddress.Text,
                     NgaySinh = DateTime.Parse(txtCustomerDob.Text),
                     Active = true
                 };
-                if(customer != null)
+                if (customer != null)
                 {
-                    context.TblKhachHangs.Add(customer);
-                    context.SaveChanges();
-                    LoadData();
+                    AddCustomer(customer);
                     MessageBox.Show("Add customer successfully");
                 }
+                LoadData();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private async void UpdateCustomer(TblKhachHang c)
+        {
+            await client.PutAsJsonAsync("UpdateCustomer/" + txtCustomerId.Text, c);
         }
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
@@ -135,27 +165,34 @@ namespace Project2023PRN221
             }
         }
 
+        private async void DisableCustomer(string cid)
+        {
+            await client.GetStringAsync("DisableCustomer/" + cid);
+        }
+
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                TblKhachHang c = context.TblKhachHangs.FirstOrDefault(a => a.MakH.Equals(txtCustomerId.Text));
-                if (c != null)
-                {
-                    c.Active = false;
+                //TblKhachHang c = context.TblKhachHangs.FirstOrDefault(a => a.MakH.Equals(txtCustomerId.Text));
+                //if (c != null)
+                //{
+                //    c.Active = false;
 
-                    if (context.SaveChanges() > 0)
-                    {
-                        LoadData();
-                        MessageBox.Show("Delete customer successfully");
-                    }
+                //    if (context.SaveChanges() > 0)
+                //    {
+                //        LoadData();
+                //        MessageBox.Show("Delete customer successfully");
+                //    }
 
-                }
+                //}
+                DisableCustomer(txtCustomerId.Text);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+            LoadData();
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
@@ -168,13 +205,13 @@ namespace Project2023PRN221
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
             var customer = context.TblKhachHangs.FirstOrDefault(a => a.TenKh.Contains(txtSearch.Text) || a.MakH.Contains(txtSearch.Text) || a.Diachi.Contains(txtSearch.Text));
-            if(customer != null)
+            if (customer != null)
             {
                 txtCustomerName.Text = customer.TenKh;
                 txtCustomerId.Text = customer.MakH.ToString();
                 txtCustomerAddress.Text = customer.Diachi;
                 txtCustomerDob.Text = customer.NgaySinh.ToString();
-                if(customer.Gt == true)
+                if (customer.Gt == true)
                 {
                     rbMale.IsChecked = true;
                 }
@@ -188,5 +225,7 @@ namespace Project2023PRN221
                 MessageBox.Show("The customer doesn't exist");
             }
         }
+
+       
     }
 }
