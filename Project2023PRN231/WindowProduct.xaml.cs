@@ -90,11 +90,19 @@ namespace Project2023PRN221
         {
             try
             {
-                TblMatHang p = context.TblMatHangs.FirstOrDefault(item => item.MaHang.Equals(txtProductId.Text));
-                if (p != null)
+                TblMatHang c = context.TblMatHangs.FirstOrDefault(item => item.MaHang.Equals(txtProductId.Text));
+                if (c != null)
                 {
-                    UpdateProduct(p);
-                    LoadData();
+                    c.TenHang = txtProductName.Text;
+                    c.TenHang = txtProductName.Text;
+                    c.Dvt = cbProductType.Text;
+                    c.Gia = float.Parse(txtProductPrice.Text);
+
+                    if (context.SaveChanges() > 0)
+                    {
+                        LoadData();
+                        MessageBox.Show("Update product successfully");
+                    }
                 }
             }
             catch (Exception ex)
@@ -108,10 +116,24 @@ namespace Project2023PRN221
         }
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            if(txtProductId.Text != String.Empty)
+            try
             {
-                DeleteProduct(txtProductId.Text);
-                LoadData();
+                TblMatHang c = context.TblMatHangs.FirstOrDefault(a => a.MaHang.Equals(txtProductId.Text));
+                if (c != null)
+                {
+                    c.Active = false;
+
+                    if (context.SaveChanges() > 0)
+                    {
+                        LoadData();
+                        MessageBox.Show("Delete product successfully");
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
         private async void DeleteProduct(string id)
